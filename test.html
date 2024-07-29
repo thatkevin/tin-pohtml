@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stack of Divs</title>
+</head>
+<body>
+  <div class="stack">
+    <div class="layer" style="background-color: lightcoral;">Layer 1</div>
+    <div class="layer" style="background-color: lightblue;">Layer 2</div>
+    <div class="layer" style="background-color: lightgreen;">Layer 3</div>
+    <div class="layer" style="background-color: lightgoldenrodyellow;">Layer 4</div>
+    <div class="layer" style="background-color: lightpink;">Layer 5</div>
+  </div>
+  <script>document.addEventListener('scroll', function() {
+    const layers = document.querySelectorAll('.layer');
+    layers.forEach((layer, index) => {
+      if (window.scrollY > index * window.innerHeight) {
+        layer.style.zIndex = layers.length - index;
+      } else {
+        layer.style.zIndex = 0;
+      }
+    });
+  });</script>
+  <style type="text/css">
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+        }
+
+        .stack {
+        height: 100%;
+        overflow-y: scroll;
+        position: relative;
+        }
+
+        .layer {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        width: 100%;
+        font-size: 2em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #000;
+        box-sizing: border-box;
+        }
+
+  </style>
+</body>
+</html>
