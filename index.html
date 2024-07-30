@@ -119,7 +119,6 @@
           </svg>
         </label>
         <input class="hidden" type="checkbox" id="menu-toggle" />
-
         <div
           class="hidden md:flex md:items-center md:w-auto w-full order-3 md:order-1"
           id="menu"
@@ -170,7 +169,7 @@
                 <h1 class="text-3xl font-bold">The Tin</h1>
                 <h1 class="text-sm -mt-2 text-gray-600">Music and Arts</h1>
                 <svg
-                  class="flex justify-center -mt-5 h-12 w-28"
+                  class="flex justify-center -mt-5 h-12 w-28 hidden md:block"
                   viewBox="0 0 115.72011 8.2017117"
                 >
                   <rect
@@ -241,7 +240,9 @@
           "
         >
           <article class="p-3">
-            <header class="p-6 absolute bottom-0 left-0 text-lg bg-black">
+            <header
+              class="p-6 absolute bottom-0 left-0 text-lg bg-black border-black border-transition border-left-hover"
+            >
               <time datetime="2021-12-20" class="uppercase block bg-black"
                 >Tuesday 10th September</time
               >
@@ -252,7 +253,9 @@
               ></p>
               The humble master of the 21st century folk tradition - Rolling
               Stone
-              <p></p>
+              <button class="block bg-white text-black p-2 mt-2">
+                Tickets
+              </button>
             </header>
           </article>
         </div>
@@ -269,7 +272,9 @@
           "
         >
           <article class="p-3">
-            <header class="p-6 absolute bottom-0 left-0 text-lg bg-black">
+            <header
+              class="p-6 absolute bottom-0 left-0 text-lg bg-black border-black border-transition border-left-hover"
+            >
               <time datetime="2021-12-20" class="uppercase block bg-black"
                 >Wednesday 9th October</time
               >
@@ -279,7 +284,9 @@
                 class="absolute bottom-0 right-0 h-16 p-4 text-outline text-sm text-gray-700"
               ></p>
               Weird? Very… but also downright inspiring - Rolling Stone
-              <p></p>
+              <button class="block bg-white text-black p-2 mt-2">
+                Tickets
+              </button>
             </header>
           </article>
         </div>
@@ -296,12 +303,17 @@
           "
         >
           <article class="p-3">
-            <header class="p-6 absolute bottom-0 left-0 text-lg bg-black">
+            <header
+              class="p-6 absolute bottom-0 left-0 text-lg bg-black border-black border-transition border-left-hover"
+            >
               <time datetime="2021-12-20" class="uppercase block bg-black"
                 >Saturday 18th October</time
               >
               A proper shindig
               <p class="text-3xl text-outline">Kitchen Club Indie Disco</p>
+              <button class="block bg-white text-black p-2 mt-2">
+                Tickets
+              </button>
             </header>
           </article>
         </div>
@@ -335,6 +347,14 @@
         border: 1px solid #000;
         box-sizing: border-box;
         transition: all 0.3s ease;
+      }
+
+      .border-left-hover:hover {
+        border-left-width: 5px;
+      }
+
+      .border-transition {
+        transition: border-width 1s ease-in-out;
       }
 
       .text-outline {
