@@ -1,0 +1,13 @@
+<h2>Hello, <%= @user.email %>!</h2>
+
+<p>You've requested a magic login link for The Tin Music and Arts admin panel.</p>
+
+<p>Please click the button below to log in. This link will expire in 30 minutes.</p>
+
+<p>
+  <%= link_to "Log in to Admin Panel", @magic_link, class: "button" %>
+</p>
+
+<p>If you didn't request this link, you can safely ignore this email.</p>
+
+<p>Or copy and paste this URL into your browser: <%= @magic_link %></p>

@@ -1,0 +1,132 @@
+<% content_for :title, "Dashboard" %>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  <!-- Statistics Cards -->
+  <div class="bg-white rounded-lg shadow p-5">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-indigo-600 bg-opacity-75">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+      </div>
+      <div class="ml-4">
+        <h2 class="font-semibold text-gray-800">Upcoming Gigs</h2>
+        <p class="mt-2 text-sm text-gray-600"><%= Gig.upcoming.count %> scheduled</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow p-5">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-green-600 bg-opacity-75">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+        </svg>
+      </div>
+      <div class="ml-4">
+        <h2 class="font-semibold text-gray-800">Pages</h2>
+        <p class="mt-2 text-sm text-gray-600"><%= Page.count %> total</p>
+      </div>
+    </div>
+  </div>
+  
+  <div class="bg-white rounded-lg shadow p-5">
+    <div class="flex items-center">
+      <div class="p-3 rounded-full bg-yellow-600 bg-opacity-75">
+        <svg class="h-8 w-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+        </svg>
+      </div>
+      <div class="ml-4">
+        <h2 class="font-semibold text-gray-800">Series</h2>
+        <p class="mt-2 text-sm text-gray-600"><%= @series_count %> total</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+  <!-- Upcoming Gigs -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+      <h3 class="text-lg font-semibold text-gray-800">Upcoming Gigs</h3>
+    </div>
+    <div class="p-6">
+      <% if @upcoming_gigs.any? %>
+        <ul class="divide-y divide-gray-200">
+          <% @upcoming_gigs.each do |gig| %>
+            <li class="py-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-md font-medium text-gray-800"><%= gig.title %></h4>
+                  <p class="text-sm text-gray-600"><%= gig.date.strftime("%d %B %Y") %> <%= gig.formatted_time %></p>
+                </div>
+                <%= link_to "Edit", edit_admin_gig_path(gig), class: "text-indigo-600 hover:text-indigo-900" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "View All", admin_gigs_path, class: "mt-4 inline-block text-indigo-600 hover:text-indigo-900" %>
+      <% else %>
+        <p class="text-gray-600">No upcoming gigs scheduled.</p>
+        <%= link_to "Create New Gig", new_admin_gig_path, class: "mt-2 inline-block text-indigo-600 hover:text-indigo-900" %>
+      <% end %>
+    </div>
+  </div>
+  
+  <!-- Recent Pages -->
+  <div class="bg-white rounded-lg shadow overflow-hidden">
+    <div class="px-6 py-4 border-b border-gray-200 bg-gray-50">
+      <h3 class="text-lg font-semibold text-gray-800">Recently Updated Pages</h3>
+    </div>
+    <div class="p-6">
+      <% if @recent_pages.any? %>
+        <ul class="divide-y divide-gray-200">
+          <% @recent_pages.each do |page| %>
+            <li class="py-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-md font-medium text-gray-800"><%= page.title %></h4>
+                  <p class="text-sm text-gray-600">Updated <%= time_ago_in_words(page.updated_at) %> ago</p>
+                </div>
+                <%= link_to "Edit", edit_admin_page_path(page), class: "text-indigo-600 hover:text-indigo-900" %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+        <%= link_to "View All", admin_pages_path, class: "mt-4 inline-block text-indigo-600 hover:text-indigo-900" %>
+      <% else %>
+        <p class="text-gray-600">No pages created yet.</p>
+        <%= link_to "Create New Page", new_admin_page_path, class: "mt-2 inline-block text-indigo-600 hover:text-indigo-900" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="mt-6 bg-white rounded-lg shadow p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h3 class="text-lg font-semibold text-gray-800">Quick Actions</h3>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <%= link_to new_admin_gig_path, class: "border rounded-lg p-4 hover:bg-gray-50 flex items-center" do %>
+      <svg class="h-6 w-6 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      <span>Create New Gig</span>
+    <% end %>
+    
+    <%= link_to new_admin_page_path, class: "border rounded-lg p-4 hover:bg-gray-50 flex items-center" do %>
+      <svg class="h-6 w-6 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      <span>Create New Page</span>
+    <% end %>
+    
+    <%= link_to new_admin_series_path, class: "border rounded-lg p-4 hover:bg-gray-50 flex items-center" do %>
+      <svg class="h-6 w-6 text-indigo-600 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      <span>Create New Series</span>
+    <% end %>
+  </div>
+</div>
